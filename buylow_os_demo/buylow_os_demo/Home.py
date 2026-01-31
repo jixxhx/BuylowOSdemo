@@ -14,7 +14,7 @@ st.set_page_config(
     page_title="BuyLow OS",
     page_icon="📈",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # ============================================================
@@ -53,15 +53,6 @@ def show_opening_splash():
             [data-testid="stSidebarNav"] {
                 display: none !important;
                 visibility: hidden !important;
-            }
-            
-            /* 🚨 토글 버튼은 항상 표시 (안전장치) */
-            [data-testid="collapsedControl"] {
-                display: flex !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-                z-index: 999999 !important;
             }
             
             /* 스크롤 방지 */
