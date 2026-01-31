@@ -47,6 +47,14 @@ def inject_critical_css():
                 pointer-events: auto !important;
                 z-index: 999999 !important;
                 position: fixed !important;
+                top: 12px !important;
+                left: 12px !important;
+                transform: none !important;
+            }}
+            [data-testid="collapsedControl"] * {{
+                visibility: visible !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
             }}
             
             /* ========================================
@@ -85,10 +93,18 @@ def inject_critical_css():
             #MainMenu, 
             footer, 
             header,
-            [data-testid="stHeader"],
             .stDeployButton {{
                 display: none !important;
                 visibility: hidden !important;
+            }}
+            
+            /* 헤더는 숨기지 않고 투명 처리 (토글 버튼 보호) */
+            [data-testid="stHeader"] {{
+                background: transparent !important;
+                box-shadow: none !important;
+                border-bottom: none !important;
+                height: 0 !important;
+                min-height: 0 !important;
             }}
             
             /* ========================================
