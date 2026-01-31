@@ -38,7 +38,19 @@ def inject_critical_css():
         f"""
         <style>
             /* ========================================
-               0. 다크 모드 강제 (라이트 모드 방지)
+               0. 🚨 사이드바 토글 버튼 항상 표시 (최우선)
+               ======================================== */
+            [data-testid="collapsedControl"] {{
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                z-index: 999999 !important;
+                position: fixed !important;
+            }}
+            
+            /* ========================================
+               1. 다크 모드 강제 (라이트 모드 방지)
                ======================================== */
             html, body {{
                 color-scheme: dark !important;
@@ -46,7 +58,7 @@ def inject_critical_css():
             }}
             
             /* ========================================
-               1. 기본 네비게이션 완전 숨김 (최우선)
+               2. 기본 네비게이션 완전 숨김 (토글 버튼 제외)
                ======================================== */
             [data-testid="stSidebarNav"],
             [data-testid="stSidebarNav"] *,
@@ -68,7 +80,7 @@ def inject_critical_css():
             }}
             
             /* ========================================
-               2. 기본 헤더/푸터/메뉴 숨김
+               3. 기본 헤더/푸터/메뉴 숨김
                ======================================== */
             #MainMenu, 
             footer, 
@@ -80,17 +92,10 @@ def inject_critical_css():
             }}
             
             /* ========================================
-               3. 사이드바 초기 숨김 후 페이드인
+               4. 사이드바 스타일링
                ======================================== */
             [data-testid="stSidebar"] {{
-                opacity: 0;
-                animation: sidebarReveal 0.4s ease-out 0.1s forwards;
                 background: linear-gradient(180deg, {COLORS['bg_sidebar']} 0%, #0f1724 100%) !important;
-            }}
-            
-            @keyframes sidebarReveal {{
-                from {{ opacity: 0; }}
-                to {{ opacity: 1; }}
             }}
             
             /* 사이드바 왼쪽 고정 및 패딩 통일 */
@@ -106,7 +111,7 @@ def inject_critical_css():
             }}
             
             /* ========================================
-               4. 전역 배경 및 폰트
+               5. 전역 배경 및 폰트
                ======================================== */
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
             
@@ -118,10 +123,10 @@ def inject_critical_css():
             }}
             
             /* ========================================
-               5. 모든 위젯 다크 모드 강제 + 가독성 강화
+               6. 모든 위젯 다크 모드 강제 + 가독성 강화
                ======================================== */
             
-            /* ----- 5.1 Placeholder 가독성 (밝게) ----- */
+            /* ----- 6.1 Placeholder 가독성 (밝게) ----- */
             ::placeholder {{
                 color: rgba(220, 230, 245, 0.7) !important;
                 opacity: 1 !important;
@@ -145,7 +150,7 @@ def inject_critical_css():
                 opacity: 1 !important;
             }}
             
-            /* ----- 5.2 입력 텍스트 색 (거의 흰색) ----- */
+            /* ----- 6.2 입력 텍스트 색 (거의 흰색) ----- */
             .stTextInput > div > div > input,
             .stTextArea > div > div > textarea,
             .stNumberInput > div > div > input,
@@ -174,7 +179,7 @@ def inject_critical_css():
                 color: #ebeff5 !important;
             }}
             
-            /* ----- 5.3 포커스 상태 (선명하게) ----- */
+            /* ----- 6.3 포커스 상태 (선명하게) ----- */
             .stTextInput > div > div > input:focus,
             .stTextArea > div > div > textarea:focus,
             .stNumberInput > div > div > input:focus,
@@ -192,7 +197,7 @@ def inject_critical_css():
                 box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3) !important;
             }}
             
-            /* ----- 5.4 라벨 및 설명 텍스트 가독성 ----- */
+            /* ----- 6.4 라벨 및 설명 텍스트 가독성 ----- */
             /* 위젯 라벨 */
             .stTextInput label,
             .stTextArea label,
@@ -249,7 +254,7 @@ def inject_critical_css():
                 color: #e2e8f0 !important;
             }}
             
-            /* ----- 5.5 셀렉트 박스 ----- */
+            /* ----- 6.5 셀렉트 박스 ----- */
             .stSelectbox > div > div,
             .stMultiSelect > div > div,
             [data-baseweb="select"] > div {{
@@ -278,7 +283,7 @@ def inject_critical_css():
                 color: #ffffff !important;
             }}
             
-            /* ----- 5.6 버튼 ----- */
+            /* ----- 6.6 버튼 ----- */
             .stButton > button {{
                 background-color: {COLORS['bg_card']} !important;
                 color: #ebeff5 !important;
@@ -303,7 +308,7 @@ def inject_critical_css():
                 border: none !important;
             }}
             
-            /* ----- 5.7 파일 업로더 ----- */
+            /* ----- 6.7 파일 업로더 ----- */
             [data-testid="stFileUploader"],
             [data-testid="stFileUploader"] > div {{
                 background-color: {COLORS['bg_card']} !important;
@@ -319,7 +324,7 @@ def inject_critical_css():
                 color: #ebeff5 !important;
             }}
             
-            /* ----- 5.8 Expander ----- */
+            /* ----- 6.8 Expander ----- */
             .streamlit-expanderHeader {{
                 background-color: {COLORS['bg_card']} !important;
                 color: #ebeff5 !important;
@@ -333,7 +338,7 @@ def inject_critical_css():
                 color: #d0d8e4 !important;
             }}
             
-            /* ----- 5.9 코드 블록 ----- */
+            /* ----- 6.9 코드 블록 ----- */
             .stCodeBlock,
             code,
             pre {{
@@ -349,7 +354,7 @@ def inject_critical_css():
                 border-radius: 4px !important;
             }}
             
-            /* ----- 5.10 슬라이더 ----- */
+            /* ----- 6.10 슬라이더 ----- */
             .stSlider > div > div > div {{
                 background-color: {COLORS['border']} !important;
             }}
@@ -359,7 +364,7 @@ def inject_critical_css():
                 color: #9aa8b8 !important;
             }}
             
-            /* ----- 5.11 체크박스, 라디오 ----- */
+            /* ----- 6.11 체크박스, 라디오 ----- */
             .stCheckbox > label,
             .stRadio > label {{
                 color: #d0d8e4 !important;
@@ -370,7 +375,7 @@ def inject_critical_css():
                 color: #ebeff5 !important;
             }}
             
-            /* ----- 5.12 데이터프레임, 테이블 ----- */
+            /* ----- 6.12 데이터프레임, 테이블 ----- */
             .stDataFrame,
             [data-testid="stTable"] {{
                 background-color: {COLORS['bg_card']} !important;
@@ -387,7 +392,7 @@ def inject_critical_css():
                 color: #d0d8e4 !important;
             }}
             
-            /* ----- 5.13 Chat Input ----- */
+            /* ----- 6.13 Chat Input ----- */
             [data-testid="stChatInput"] {{
                 background-color: {COLORS['bg_card']} !important;
                 border: 1px solid {COLORS['border']} !important;
@@ -405,7 +410,7 @@ def inject_critical_css():
                 color: #d0d8e4 !important;
             }}
             
-            /* ----- 5.14 Metric ----- */
+            /* ----- 6.14 Metric ----- */
             [data-testid="stMetric"] label {{
                 color: #9aa8b8 !important;
             }}
@@ -418,7 +423,7 @@ def inject_critical_css():
                 color: #4ade80 !important;
             }}
             
-            /* ----- 5.15 탭 ----- */
+            /* ----- 6.15 탭 ----- */
             .stTabs [data-baseweb="tab-list"] {{
                 background-color: transparent !important;
             }}
@@ -458,7 +463,7 @@ def inject_critical_css():
             }}
             
             /* ========================================
-               6. 페이지 전환 애니메이션
+               7. 페이지 전환 애니메이션
                ======================================== */
             @keyframes contentFadeIn {{
                 from {{ opacity: 0; transform: translateY(10px); }}
@@ -470,7 +475,7 @@ def inject_critical_css():
             }}
             
             /* ========================================
-               7. 로고 플로팅 애니메이션
+               8. 로고 플로팅 애니메이션
                ======================================== */
             @keyframes logoFloat {{
                 0%, 100% {{ transform: translateY(0); }}
@@ -486,7 +491,7 @@ def inject_critical_css():
             }}
             
             /* ========================================
-               8. 통일된 테두리 스타일
+               9. 통일된 테두리 스타일
                ======================================== */
             :root {{
                 color-scheme: dark !important;
