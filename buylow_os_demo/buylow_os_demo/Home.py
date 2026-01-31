@@ -39,12 +39,11 @@ if 'intro_shown' not in st.session_state:
 def show_opening_splash():
     """미래지향적 오프닝 스플래시를 표시합니다."""
     
-    # 오프닝 동안 사이드바 숨김
+    # 오프닝 동안 사이드바만 숨김 (토글 버튼은 유지 - 배포 호환)
     st.markdown(
         """
         <style>
             [data-testid="stSidebar"],
-            [data-testid="collapsedControl"],
             [data-testid="stSidebarNav"] {
                 display: none !important;
                 visibility: hidden !important;
