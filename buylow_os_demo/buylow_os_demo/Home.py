@@ -39,14 +39,14 @@ if 'intro_shown' not in st.session_state:
 def show_opening_splash():
     """미래지향적 오프닝 스플래시를 표시합니다."""
     
-    # 오프닝 동안 사이드바만 숨김 (토글 버튼은 절대 숨기지 않음)
+    # 오프닝 동안 사이드바는 투명 처리 (토글 버튼은 절대 숨기지 않음)
     st.markdown(
         """
         <style>
-            /* 사이드바 본체만 숨김 */
+            /* 사이드바 본체는 투명 처리만 (display/visibility 제거 금지) */
             [data-testid="stSidebar"] {
-                display: none !important;
-                visibility: hidden !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
             }
             
             /* 기본 네비게이션 숨김 */
@@ -581,6 +581,20 @@ def render_home_page():
 if not st.session_state.intro_shown:
     show_opening_splash()
 else:
+    # 스플래시에서 투명 처리된 사이드바 복구
+    st.markdown(
+        """
+        <style>
+            [data-testid="stSidebar"] {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     # 사이드바 렌더링
     render_sidebar()
     
