@@ -39,15 +39,32 @@ if 'intro_shown' not in st.session_state:
 def show_opening_splash():
     """미래지향적 오프닝 스플래시를 표시합니다."""
     
-    # 오프닝 동안 사이드바만 숨김 (토글 버튼은 유지 - 배포 호환)
+    # 오프닝 동안 사이드바만 숨김 (토글 버튼은 절대 숨기지 않음)
     st.markdown(
         """
         <style>
-            [data-testid="stSidebar"],
+            /* 사이드바 본체만 숨김 */
+            [data-testid="stSidebar"] {
+                display: none !important;
+                visibility: hidden !important;
+            }
+            
+            /* 기본 네비게이션 숨김 */
             [data-testid="stSidebarNav"] {
                 display: none !important;
                 visibility: hidden !important;
             }
+            
+            /* 🚨 토글 버튼은 항상 표시 (안전장치) */
+            [data-testid="collapsedControl"] {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                z-index: 999999 !important;
+            }
+            
+            /* 스크롤 방지 */
             html, body {
                 overflow: hidden !important;
             }
