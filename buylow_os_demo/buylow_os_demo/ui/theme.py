@@ -89,7 +89,6 @@ def inject_critical_css():
                ======================================== */
             #MainMenu, 
             footer, 
-            header,
             .stDeployButton {{
                 display: none !important;
                 visibility: hidden !important;
@@ -100,8 +99,6 @@ def inject_critical_css():
                 background: transparent !important;
                 box-shadow: none !important;
                 border-bottom: none !important;
-                height: 0 !important;
-                min-height: 0 !important;
             }}
             
             /* ========================================
