@@ -57,13 +57,8 @@ def render():
     </style>
     """, unsafe_allow_html=True)
 
-    CONTENT_PATH = Path("data/content_versions.json")
-
     def load_contents():
-        if CONTENT_PATH.exists():
-            with open(CONTENT_PATH, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        return []
+        return load_json("content_versions.json", default=[])
 
     # 헤더
     st.markdown("""
