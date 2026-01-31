@@ -41,20 +41,17 @@ def inject_critical_css():
                0. 🚨 사이드바 토글 버튼 항상 표시 (최우선)
                ======================================== */
             [data-testid="collapsedControl"] {{
-                display: flex !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-                z-index: 999999 !important;
-                position: fixed !important;
-                top: 12px !important;
-                left: 12px !important;
-                transform: none !important;
+                display:flex !important;
+                visibility:visible !important;
+                opacity:1 !important;
+                pointer-events:auto !important;
+                position:fixed !important;
+                top:10px !important;
+                left:10px !important;
+                z-index:999999 !important;
             }}
-            [data-testid="collapsedControl"] * {{
-                visibility: visible !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
+            [data-testid="stSidebar"] {{
+                z-index:999998 !important;
             }}
             
             /* ========================================
